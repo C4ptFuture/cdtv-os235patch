@@ -37,7 +37,7 @@ make cdtvos235rom
 You can also run the docker command directly if you prefer:
 
 ```sh
-docker run --rm -v $(pwd):/data captainfuture/cdtvos235patch:1.0.0 /appl/run.sh
+docker run --rm -v $(pwd):/data captainfuture/cdtvos235patch /appl/run.sh
 ```
 
 If the patch was succesful, you will end up with a new ROM image for 2.35 in the current directory.
