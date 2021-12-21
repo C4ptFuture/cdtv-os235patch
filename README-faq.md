@@ -93,7 +93,7 @@ Yes, but right now only the CDTV OS 2.35 ROM update for the CDTV player (CD1000)
 _Do not use the CD1000 ROM in an A570, because that can potentially corrupt the EEPROM that contains the bookmark store of the A570. Make sure you use the correct ROM!_ There will be 3 different ROM versions available, one for each target device.
 
 ### Why is the A570/A690 update not available yet?
-The A570 has shown some issues when used with the TF536. I am currently still investigating if that is something that can be fixed/worked around. The A690 update is not available yet because I have no A690 to test. (I am looking to buy an A690, if someone has one for sale or knows someone that is selling please contact me!)
+The A570 has shown some issues when used with the TF536. I am currently still investigating if that is something that can be fixed/worked around. The A690 update is not available yet because I have no A690 to test. (I am looking to buy an A690, if someone has one for sale or knows someone that is selling please contact me at cdtvland@gmail.com)
 
 ### How do I set the HDD boot delay?
 You can use the [CDTVTools](https://github.com/C4ptFuture/cdtv-cdtvtools) application for that.
