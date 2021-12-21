@@ -19,7 +19,7 @@ For a more detailed features/fixes rundown see the CDTV OS 2.35 information page
 
 Requirements:
 
-- Intel based macOS or Linux operating system
+- Intel based macOS or Linux operating system (Windows users, see "Using bsdiff directly" below)
 - Make
 - Docker
 - The official CDTV 2.30 Extended ROM image (md5 sum: d98112f18792ee3714df16a6eb421b89)
@@ -42,9 +42,21 @@ docker run --rm -v $(pwd):/data captainfuture/cdtvos235patch /appl/run.sh
 
 If the patch was succesful, you will end up with a new ROM image for 2.35 in the current directory.
 
+![bla](pics/examplemake.gif)
+
 ### Building the Docker image yourself
 The Dockerfile is included in this repo, so instead of pulling the Docker image you can build it yourself if you'd prefer so. 
 
+
+### Using bsdiff directly
+The patch has been created using bsdiff. If you have bsdiff on your UNIX/Linux/macOS system you can also apply the patch manually without the overhead of Docker and make. Windows user can download a precompiled binary of bsdiff [here](https://www.pokorra.de/coding/bsdiff.html) (the bsdiff_win_exe.zip).
+
+Once you have bsdiff you only need the `235-release-cd1000-patch.bin` patch file from the `src/docker` directory. You can then apply the patch as follows:
+
+```sh
+bsdiff 230.rom "CDTV Extended-ROM v2.35 (2021)(CDTV Land)(CDTV).rom" 235-release-cd1000-patch.bin
+```
+This should generate the 2.35 ROM image. The md5 sum of the 2.35 ROM image should be `662e740093ffe510695cab281cd659f7`
 
 ## Tools used to create CDTV OS 2.35
 
