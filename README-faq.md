@@ -77,3 +77,9 @@ The A570 has shown some issues when used with the TF536. I am currently still in
 ### How do I set the HDD boot delay?
 You can use the [CDTVTools](https://github.com/C4ptFuture/cdtv-cdtvtools) application for that.
 
+### How do I split the ROM image for burning to EPROMs?
+Most modern programmer software packages allow you to select the high or low byte (which is the same as odd or even byre) in the ROM image before burning, so you don't have to split the ROM image manually. Here is an example on how to do that in XGPro:
+
+![](pics/split.png)
+
+There is no need to swap bytes in the ROM image for CD1000.
