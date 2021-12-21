@@ -1,5 +1,26 @@
 # CDTV OS 2.35 - FAQ
 
+- [CDTV OS 2.35 - FAQ](#cdtv-os-235---faq)
+    - [Is this an official CDTV OS ROM release?](#is-this-an-official-cdtv-os-rom-release)
+    - [Is this another ROM hack?](#is-this-another-rom-hack)
+    - [Will you share the source code?](#will-you-share-the-source-code)
+    - [Why can't I download this ROM image anywhere?](#why-cant-i-download-this-rom-image-anywhere)
+    - [What is CDTV OS exactly?](#what-is-cdtv-os-exactly)
+    - [Was CDTV OS ever used as a term or are you just making this up?](#was-cdtv-os-ever-used-as-a-term-or-are-you-just-making-this-up)
+    - [Is CDTV OS ROM the same as CDTV Extended ROM?](#is-cdtv-os-rom-the-same-as-cdtv-extended-rom)
+    - [How did you reverse engineer the CDTV OS ROM?](#how-did-you-reverse-engineer-the-cdtv-os-rom)
+    - [Why did you make this ROM?](#why-did-you-make-this-rom)
+    - [Why exactly does the CD-ROM drive stop working on all other ROMs except yours when you install a 68030 accelerator and/or 32-bit Fast RAM in a CDTV player?](#why-exactly-does-the-cd-rom-drive-stop-working-on-all-other-roms-except-yours-when-you-install-a-68030-accelerator-andor-32-bit-fast-ram-in-a-cdtv-player)
+    - [You say that the ROM uses the 68030 MMU to do cache-inhibit, but SysInfo and any other tool says the MMU unused. What gives?](#you-say-that-the-rom-uses-the-68030-mmu-to-do-cache-inhibit-but-sysinfo-and-any-other-tool-says-the-mmu-unused-what-gives)
+    - [Does CDTV OS 2.35 also support 68040 and 68060 accelerators?](#does-cdtv-os-235-also-support-68040-and-68060-accelerators)
+    - [Does CDTV OS 2.35 work with PiStorm?](#does-cdtv-os-235-work-with-pistorm)
+    - [Which 68030 based accelerators can be used in a CDTV player?](#which-68030-based-accelerators-can-be-used-in-a-cdtv-player)
+    - [Why do I need to update my TF536 firmware?](#why-do-i-need-to-update-my-tf536-firmware)
+    - [What Kickstart ROM versions are compatible with CDTV OS 2.35?](#what-kickstart-rom-versions-are-compatible-with-cdtv-os-235)
+    - [Does the CDTV OS 2.35 ROM also work on my A570 or A690?](#does-the-cdtv-os-235-rom-also-work-on-my-a570-or-a690)
+    - [Why is the A570/A690 update not available yet?](#why-is-the-a570a690-update-not-available-yet)
+    - [How do I set the HDD boot delay?](#how-do-i-set-the-hdd-boot-delay)
+    - [How do I split the ROM image for burning to EPROMs?](#how-do-i-split-the-rom-image-for-burning-to-eproms)
 
 ### Is this an official CDTV OS ROM release?
 No. This is a "custom" ROM. It is not affiliated with, nor is it endorsed by the Amiga Corporation, which is the current owner of the Amiga's IP (and hence also CDTV), nor is it affiliated with or endorsed by Hyperion BVBA (a licensee).

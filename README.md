@@ -4,6 +4,15 @@ This repository contains a patch that can convert an official Commodore CDTV 2.3
 
 _This repository contains no Commodore/Amiga intellectual property._
 
+# Table of Contents
+
+  - [What is CDTV OS 2.35?](#what-is-cdtv-os-235)
+  - [How to apply the patch](#how-to-apply-the-patch)
+    - [Using Docker image](#using-docker-image)
+    - [Building the Docker image yourself](#building-the-docker-image-yourself)
+    - [Using bsdiff directly](#using-bsdiff-directly)
+  - [Tools used to create CDTV OS 2.35](#tools-used-to-create-cdtv-os-235)
+
 ## What is CDTV OS 2.35?
 CDTV OS 2.35 is an _unofficial_ update to the Commodore CDTV Operating System ROM. It is the first major update to the ROM since 1992. The 2.35 update does the following things:
 
