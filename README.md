@@ -4,6 +4,8 @@ This repository contains a patch that can convert an official Commodore CDTV 2.3
 
 _This repository contains no Commodore/Amiga intellectual property._
 
+![CDTV OS 2.35](pics/cdtvos235.png)
+
 # Table of Contents
 
   - [What is CDTV OS 2.35?](#what-is-cdtv-os-235)
@@ -20,7 +22,8 @@ CDTV OS 2.35 is an _unofficial_ update to the Commodore CDTV Operating System RO
 - It adds compatibility with 68030 accelerators and 32-bit-Fast RAM
 - It adds some quality of life features and fixes some bugs.
 
-For a more detailed features/fixes rundown see the CDTV OS 2.35 information page on [CDTV Land](https://cdtvland.com/os235). For more technical details please consult the [CDTV OS 2.35 FAQ](README-faq.md).
+For a more detailed rundown of all the changes see the CDTV OS 2.35 information page on [CDTV Land](https://cdtvland.com/os235). For more technical details please consult the [CDTV OS 2.35 FAQ](README-faq.md).
+
 
 ## How to apply the patch
 
