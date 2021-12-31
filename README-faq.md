@@ -4,7 +4,7 @@
     - [Is this an official CDTV OS ROM release?](#is-this-an-official-cdtv-os-rom-release)
     - [Is this another ROM hack?](#is-this-another-rom-hack)
     - [Will you share the source code?](#will-you-share-the-source-code)
-    - [Why can't I download this ROM image anywhere?](#why-cant-i-download-this-rom-image-anywhere)
+    - [Why can't I download the CDTV OS 2.35 ROM image anywhere?](#why-cant-i-download-the-cdtv-os-235-rom-image-anywhere)
     - [What is CDTV OS exactly?](#what-is-cdtv-os-exactly)
     - [Was CDTV OS ever used as a term or are you just making this up?](#was-cdtv-os-ever-used-as-a-term-or-are-you-just-making-this-up)
     - [Is CDTV OS ROM the same as CDTV Extended ROM?](#is-cdtv-os-rom-the-same-as-cdtv-extended-rom)
@@ -29,10 +29,11 @@ No. This is a "custom" ROM. It is not affiliated with, nor is it endorsed by the
 Most definitely not. A lot of time has gone into reverse engineering the original binary ROM code for this project. This was necessary because the original CDTV OS firmware/software is not open source. The result of the reverse engineering process is 100% assembler source code that can be built into a byte-by-byte exact binary copy of the original ROM modules on modern day machines using open source software. The source code can then be used to easily update, bugfix or otherwise improve these modules. This allows further development of the CDTV OS without needing access to the original Commodore source code anymore.
 
 ### Will you share the source code?
-I would love to put the source code of the reverse engineered ROM modules on my GitHub page, but I cannot. Although the reverse engineered source code, the bugfixes, modifications, and new features that went into CDTV OS 2.35 are all my own work, the resulting ROM image is still a derivative of the original Commodore ROM, and as such the copyright still belongs to the current owner, Amiga Corporation. I cannot distribute my modified ROM images without their permission.
+I would love to put the source code of the reverse engineered ROM modules on my GitHub page, but I cannot. Although reverse engineering the CDTV OS ROM into source code is all my own work, the resulting source code is still a derivative of the original Commodore ROM and as such contains intellectual property that belongs to Amiga Corporation (Cloanto). I cannot distribute this source code without their permission (which is very unlikely to happen anyway, because the original code is not open source as it is).
 
-### Why can't I download this ROM image anywhere?
-See the answer to the previous question.
+### Why can't I download the CDTV OS 2.35 ROM image anywhere?
+Although the bugfixes, modifications, and new features that went into CDTV OS 2.35 are all my own work, the resulting ROM image is still a derivative of the original Commodore ROM and as such contains intellectual property that belongs to Amiga Corporation (Cloanto). I have been in touch with Amiga Corporation about making my work part of an official ROM release in whatever shape or form. The contact was very cordial, but -and this is my interpretation of the situation- the currently on-going legal proceedings between Amiga Corporation and Hyperion are making such a release complicated at this point in time. Perhaps once this court case is over my work will be available in a more user friendly manner, but until then this patch method is the best I can do without breaching copyright.
+
 
 ### What is CDTV OS exactly?
 CDTV OS is the name for all the functionality provided by the resident modules inside the CDTV OS ROM, a.k.a. Extended ROM. They are required to make a CDTV player function. It contains drivers and libraries for the CD-ROM drive, the CDTV memory cards, ISO9660 filesystem support and user interface stuff like the CD-Audio playback application, the Preferences screen, the CD+G playback application and more. It integrates with and depends on several exisiting Amiga operating system modules in the Kickstart ROM. It is not a full operating system in the traditional sense. A crude but apt modern day comparison is Horizon OS on the Nintendo Switch or the PS5's Orbis OS, it's just harder to update because you need to replace two ROM chips.
