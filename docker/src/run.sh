@@ -33,13 +33,18 @@ fi
 echo "[INFO]  Official 2.30 ROM hash OK."
 
 # patch it
-echo "[INFO]  Creating the 2.35 ROM fro CD1000...."
+echo "[INFO]  Creating the 2.35 ROM for CD1000...."
 bspatch "${CDTV230ROM}" "${CDTV235ROM}" 235-release-cd1000-patch.bin
 
-if [ $? -eq 0 ]; then
-    echo "[INFO]  Patch succesful. Enjoy your new CDTV ROM!!"
-else
+if [ $? -ne 0 ]; then
     echo "[ERROR] Patch failed!!"
+    exit 1
 fi
 
+# split the ROM image for easy burning to EPROM (thx ChadsArcade!)
+echo "[INFO]  Splitting ROM image"
+srec_cat -o /data/CDTV_v2_35_U34_Even.bin -binary "/data/CDTV Extended-ROM v2.35 (2021)(CDTV Land)(CDTV).rom" -binary -split 2 0
+srec_cat -o /data/CDTV_v2_35_U35_Odd.bin -binary "/data/CDTV Extended-ROM v2.35 (2021)(CDTV Land)(CDTV).rom" -binary -split 2 1
+
+echo "[INFO]  Patch succesful. Enjoy your new CDTV ROM!!"
 echo "[INFO]  PATCH CDTV OS ROM 2.30 TO 2.35 - end"

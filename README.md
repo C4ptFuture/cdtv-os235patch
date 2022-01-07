@@ -52,7 +52,13 @@ You can also run the docker command directly if you prefer:
 docker run --rm -v $(pwd):/data captainfuture/cdtvos235patch /appl/run.sh
 ```
 
-If the patch was succesful, you will end up with a new ROM image for 2.35 in the current directory.
+If the patch was succesful, you will end up with three new files in the current directory:
+
+| Filename            | Description |
+|---------------------|-------------|
+|`CDTV Extended-ROM v2.35 (2021)(CDTV Land)(CDTV).rom`| This is the 2.35 ROM image you can use in emulators|
+|`CDTV_v2_35_U34_Even.bin`          | this is the split "even" binary of the 2.35 ROM image that you can use to burn to an 27c000 EPROM |
+|`CDTV_v2_35_U35_Odd.bin`| this is the split "odd" binary of the 2.35 ROM image that you can use to burn to an 27c000 EPROM |
 
 ![bla](pics/examplemake.gif)
 
