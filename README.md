@@ -66,13 +66,13 @@ If the patch was succesful, you will end up with three new files in the current 
 The Dockerfile is included in this repo, so instead of pulling the Docker image you can build it yourself if you'd prefer so. 
 
 
-### Using bsdiff directly
-The patch has been created using bsdiff. If you have bsdiff on your UNIX/Linux/macOS system you can also apply the patch manually without the overhead of Docker and make.
+### Using bspatch directly
+The patch has been created using bsdiff. If you have bsdiff/bspatch on your UNIX/Linux/macOS system you can also apply the patch manually without the overhead of Docker and make.
 
-Once you have bsdiff you only need the `235-release-cd1000-patch.bin` patch file from the `src/docker` directory. You can then apply the patch as follows:
+Once you have bspatch you only need the `235-release-cd1000-patch.bin` patch file from the `src/docker` directory. You can then apply the patch as follows:
 
 ```sh
-bsdiff 230.rom "CDTV Extended-ROM v2.35 (2021)(CDTV Land)(CDTV).rom" 235-release-cd1000-patch.bin
+bspatch 230.rom "CDTV Extended-ROM v2.35 (2021)(CDTV Land)(CDTV).rom" 235-release-cd1000-patch.bin
 ```
 This should generate the 2.35 ROM image. The md5 sum of the 2.35 ROM image should be `662e740093ffe510695cab281cd659f7`
 
