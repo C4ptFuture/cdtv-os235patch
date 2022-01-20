@@ -11,7 +11,7 @@
     - [How did you reverse engineer the CDTV OS ROM?](#how-did-you-reverse-engineer-the-cdtv-os-rom)
     - [Why did you make this ROM?](#why-did-you-make-this-rom)
     - [Why exactly does the CD-ROM drive stop working on all other ROMs except yours when you install a 68030 accelerator and/or 32-bit Fast RAM in a CDTV player?](#why-exactly-does-the-cd-rom-drive-stop-working-on-all-other-roms-except-yours-when-you-install-a-68030-accelerator-andor-32-bit-fast-ram-in-a-cdtv-player)
-    - [You say that the ROM uses the 68030 MMU to do cache-inhibit, but SysInfo and any other tool says the MMU unused. What gives?](#you-say-that-the-rom-uses-the-68030-mmu-to-do-cache-inhibit-but-sysinfo-and-any-other-tool-says-the-mmu-unused-what-gives)
+    - [You say that the ROM uses the 68030 MMU to do cache-inhibit, but SysInfo and any other tool says the MMU is unused. What gives?](#you-say-that-the-rom-uses-the-68030-mmu-to-do-cache-inhibit-but-sysinfo-and-any-other-tool-says-the-mmu-is-unused-what-gives)
     - [Does CDTV OS 2.35 also support 68040 and 68060 accelerators?](#does-cdtv-os-235-also-support-68040-and-68060-accelerators)
     - [Does CDTV OS 2.35 work with PiStorm?](#does-cdtv-os-235-work-with-pistorm)
     - [Which 68030 based accelerators can be used in a CDTV player?](#which-68030-based-accelerators-can-be-used-in-a-cdtv-player)
@@ -19,8 +19,10 @@
     - [What Kickstart ROM versions are compatible with CDTV OS 2.35?](#what-kickstart-rom-versions-are-compatible-with-cdtv-os-235)
     - [Does the CDTV OS 2.35 ROM also work on my A570 or A690?](#does-the-cdtv-os-235-rom-also-work-on-my-a570-or-a690)
     - [Why is the A570/A690 update not available yet?](#why-is-the-a570a690-update-not-available-yet)
+    - [What is the HDD bootdelay?](#what-is-the-hdd-bootdelay)
     - [How do I set the HDD boot delay?](#how-do-i-set-the-hdd-boot-delay)
     - [How do I split the ROM image for burning to EPROMs?](#how-do-i-split-the-rom-image-for-burning-to-eproms)
+    - [Do I need to swap bytes in the ROM image?](#do-i-need-to-swap-bytes-in-the-rom-image)
 
 ### Is this an official CDTV OS ROM release?
 No. This is a "custom" ROM. It is not affiliated with, nor is it endorsed by the Amiga Corporation, which is the current owner of the Amiga's IP (and hence also CDTV), nor is it affiliated with or endorsed by Hyperion BVBA (a licensee).
@@ -69,7 +71,7 @@ The second problem has to do with the TriPort (6525) chip and the 68030. The 652
 
 The third problem is CPU caching of the DMAC Autoconfig I/O address range by the 68030. Caching I/O registers is fundamentally bad practice and can lead to unexpected results. In my tests the TF536 seemed to be unaffected, but the Viper 530 definitely had problems and also exhibited some weird corruption of data in the Extended ROM address range (F00000-F7FFFF) when CPU caching was enabled. Unfortunately the Zorro II expansion bus does not have cache inhibit lines so I fixed this problem by creating a [resident module](https://github.com/C4ptFuture/cdtv-mmu) in the CDTV 2.35 OS ROM (with a high priority so that it gets initialized very early in the system startup), that uses the 68030 MMU to disable CPU caching using one of its Transparent Translation registers. This coarse method of cache inhibiting is guaranteed to give a working CD-ROM, but it inhibits caching for the whole 24-bit address range. However, power users can still use more fine grained tools like mmu.library to disable caching of the Zorro II Autoconfig I/O address range and any other ranges that might need cache inhibit. Please consult the mmu.library documentation on how to cache inhibit specific areas of memory.
 
-### You say that the ROM uses the 68030 MMU to do cache-inhibit, but SysInfo and any other tool says the MMU unused. What gives?
+### You say that the ROM uses the 68030 MMU to do cache-inhibit, but SysInfo and any other tool says the MMU is unused. What gives?
 Cache inhibit in CDTV OS 2.35 is configured using the MMU's TTx registers. The MMU does not need any active translation tables to be configured for the Transparent Translation registers to function. 
 
 ### Does CDTV OS 2.35 also support 68040 and 68060 accelerators?
@@ -96,12 +98,19 @@ _Do not use the CD1000 ROM in an A570, because that can potentially corrupt the 
 ### Why is the A570/A690 update not available yet?
 The A570 has shown some issues when used with the TF536. I am currently still investigating if that is something that can be fixed/worked around. The A690 update is not available yet because I have no A690 to test. (I am looking to buy an A690, if someone has one for sale or knows someone that is selling please contact me at cdtvland@gmail.com)
 
+### What is the HDD bootdelay?
+
+The HDD bootdelay is a user-configurable delay that is invoked whenever a fixed bootable volume is present on the system, like e.g. a harddisk. The rationale behind this delay is to work around a usability issue caused by the way that CDTV OS is implemented, because whenever a harddisk is installed the system will always immediately bypass the CDTV Title Screen and proceed to boot from the harddisk. The problem with this implementation is that the CDTV Preferences panel becomes inaccessible to the end user. By inserting a small delay before the boot starts the user has a window of opportunity to interact with the CDTV Title Screen to e.g. launch the CDTV Preferences panel.
+
+I have implemented the HDD bootdelay in the CDTV bootstrap module (cdstrap). This module constantly scans the system for bootable volumes (diskdrive, CD-ROM drive or bootable volume on the expansion.device MountList) and will exit if one is found. The behavior when a bootable floppy disk or CD-ROM is inserted is unchanged. However instead of exiting immediately when a bootable volume on expansion.device is found, I start a counter and cdstrap will only exit when the counter value matches or exceeds that of the user configured HDD bootdelay. The user can also force an exit at any time by pressing the ESC key on the CDTV remote controller or keyboard.
+
+The HDD bootdelay value is stored in bookmark memory. When CDTV OS 2.35 starts up and there is no bookmark yet, it will create a default bookmark with an HDD bootdelay with a sane default of approximately 5 seconds. The user can set the HDD bootdelay to any desired value (including 0 to effectively disable it and restore the original behavior of the older official CDTV OS ROMs). Currently the HDD bootdelay can only be configured using a command line utility called [CDTVTools](https://github.com/C4ptFuture/cdtv-cdtvtools). Future CDTV OS ROM releases from CDTV Land will allow you to configure the HDD Bootdelay right inside the CDTV Preferences panel.
+
 ### How do I set the HDD boot delay?
-You can use the [CDTVTools](https://github.com/C4ptFuture/cdtv-cdtvtools) application for that.
+You can use the [CDTVTools](https://github.com/C4ptFuture/cdtv-cdtvtools) application for that. See the repo documentation for usage instructions.
 
 ### How do I split the ROM image for burning to EPROMs?
-Most modern programmer software packages allow you to select the high or low byte (which is the same as odd or even byre) in the ROM image before burning, so you don't have to split the ROM image manually. Here is an example on how to do that in XGPro:
+The patch will automatically generate both a standard ROM image and split the ROM image into two files (odd and even) that you can directly use to program your EPROM.
 
-![](pics/split.png)
-
-There is no need to swap bytes in the ROM image for CD1000.
+### Do I need to swap bytes in the ROM image?
+There is no need to swap bytes in the ROM image for CD1000 (the CDTV player).
