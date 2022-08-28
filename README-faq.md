@@ -91,7 +91,7 @@ It is not a requirement per se, but TF536 users _are_ advised to update their ca
 CDTV OS 2.35 works with any Kickstart ROM from version from 1.3 and up. That means it also works fine with the newest Hyperion Kickstart ROMs (tested up to Kickstart 3.2.1).
 
 ### Does the CDTV OS 2.35 ROM also work on my A570 or A690?
-Yes, but right now only the CDTV OS 2.35 ROM update for the CDTV player (CD1000) is available. The update for the A570 and A690 will be available at a later date (projected release date: Q1 2022).
+Yes, but right now only the CDTV OS 2.35 ROM update for the CDTV player (CD1000) is available. The update for the A570 and A690 will be available at a later date (projected release date: Q4 2022).
 
 _Do not use the CD1000 ROM in an A570, because that can potentially corrupt the EEPROM that contains the bookmark store of the A570. Make sure you use the correct ROM!_ There will be 3 different ROM versions available, one for each target device.
 
