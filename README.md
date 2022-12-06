@@ -29,9 +29,9 @@ For a more detailed rundown of all the changes see the CDTV OS 2.35 information 
 
 
 ## Important
-- If you plan to use the **TF536** accelerator board with your CDTV player or A570/A690, please make sure you **update your TF536** to the latest [TF536 firmware for CDTV](https://exxosforum.co.uk/forum/viewtopic.php?f=76&t=5920). See the [CDTV OS 2.35 FAQ](README-faq.md) for more information.
+- If you plan to use the ***TF536*** accelerator board with your CDTV player or A570/A690, please make sure you ***update your TF536*** to the latest [TF536 firmware for CDTV](https://exxosforum.co.uk/forum/viewtopic.php?f=76&t=5920). See the [CDTV OS 2.35 FAQ](README-faq.md) for more information.
 
-- If you plan to use your A570 with a 68030 accelerator board, make sure you to **remove or disable the A570's internal 2MB memory expansion** if you have one. Tests have shown that a 68030 with Z3 Fast RAM in conjunction with the A570's internal 2MB Fast RAM result in an unstable system, with apparently random crashes/gurus.
+- If you plan to use your A570 with a 68030 accelerator board, make sure you ***remove or disable the A570's internal 2MB memory expansion*** if you have one. Tests have shown that a 68030 with Z3 Fast RAM in conjunction with the A570's internal 2MB Fast RAM results in an unstable system, with apparently random crashes/gurus.
 
 
 ## How to apply the patch
