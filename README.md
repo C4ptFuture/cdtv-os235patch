@@ -8,11 +8,14 @@ _This repository contains no Commodore/Amiga intellectual property._
 
 # Table of Contents
 
+- [CDTV OS 2.35 patch](#cdtv-os-235-patch)
+- [Table of Contents](#table-of-contents)
   - [What is CDTV OS 2.35?](#what-is-cdtv-os-235)
+  - [Important](#important)
   - [How to apply the patch](#how-to-apply-the-patch)
     - [Using Docker image](#using-docker-image)
     - [Building the Docker image yourself](#building-the-docker-image-yourself)
-    - [Using bsdiff directly](#using-bsdiff-directly)
+    - [Using bspatch directly](#using-bspatch-directly)
   - [Tools used to create CDTV OS 2.35](#tools-used-to-create-cdtv-os-235)
 
 ## What is CDTV OS 2.35?
@@ -23,6 +26,12 @@ CDTV OS 2.35 is an _unofficial_ update to the Commodore CDTV Operating System RO
 - It adds some quality of life features and fixes some bugs.
 
 For a more detailed rundown of all the changes see the CDTV OS 2.35 information page on [CDTV Land](https://cdtvland.com/os235). For more technical details please consult the [CDTV OS 2.35 FAQ](README-faq.md).
+
+
+## Important
+- If you plan to use the **TF536** accelerator board with your CDTV player or A570/A690, please make sure you **update your TF536** to the latest [TF536 firmware for CDTV](https://exxosforum.co.uk/forum/viewtopic.php?f=76&t=5920). See the [CDTV OS 2.35 FAQ](README-faq.md) for more information.
+
+- If you plan to use your A570 with a 68030 accelerator board, make sure you to **remove or disable the A570's internal 2MB memory expansion** if you have one. Tests have shown that a 68030 with Z3 Fast RAM in conjunction with the A570's internal 2MB Fast RAM result in an unstable system, with apparently random crashes/gurus.
 
 
 ## How to apply the patch
@@ -49,16 +58,21 @@ make cdtvos235rom
 You can also run the docker command directly if you prefer:
 
 ```sh
-docker run --rm -v $(pwd):/data captainfuture/cdtvos235patch:1.0.1 /appl/run.sh
+docker run --rm -v $(pwd):/data captainfuture/cdtvos235patch:1.0.2 /appl/run.sh
 ```
 
-If the patch was succesful, you will end up with three new files in the current directory:
+If the patch was succesful, you will end up with several new files in the current directory:
 
-| Filename            | Description |
-|---------------------|-------------|
-|`CDTV Extended-ROM v2.35 (2021)(CDTV Land)(CDTV).rom`| This is the 2.35 ROM image you can use in emulators|
-|`CDTV_v2_35_U34_Even.bin`          | this is the split "even" binary of the 2.35 ROM image that you can use to burn to an 27c100 EPROM |
-|`CDTV_v2_35_U35_Odd.bin`| this is the split "odd" binary of the 2.35 ROM image that you can use to burn to an 27c100 EPROM |
+| Filename                                            | Description                                                                                                            |
+|-----------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+|`CDTV Extended-ROM v2.35 (2021)(CDTV Land)(CDTV).rom`| This is the CD1000 (CDTV player) 2.35 ROM image you can use in emulators                                               |
+|`CDTV_v2_35_U34_Even.bin`                            | This is the CD1000 (CDTV player) split "even" binary of the 2.35 ROM image that you can use to burn to an 27c100 EPROM |
+|`CDTV_v2_35_U35_Odd.bin`                             | This is the CD1000 (CDTV player) split "odd" binary of the 2.35 ROM image that you can use to burn to an 27c100 EPROM  |
+|`CDTV Extended-ROM v2.35 (2022)(CDTV Land)(A570).rom`| This is the A570 CD-ROM drive 2.35 ROM image you can use in emulators                                                  |
+|`A570_v2_35.bin`                                     | This is the A570 CD-ROM drive 2.35 byteswapped ROM image you can use to burn to a 27c400 EPROM                         |
+|`CDTV Extended-ROM v2.35 (2022)(CDTV Land)(A690).rom`| This is the A690 CD-ROM drive 2.35 ROM image you can use in emulators                                                  |
+|`A690_v2_35.bin`                                     | This is the A690 CD-ROM drive 2.35 byteswapped ROM image you can use to burn to a 27c400 EPROM                         |
+
 
 ![bla](pics/examplemake.gif)
 
@@ -69,12 +83,14 @@ The Dockerfile is included in this repo, so instead of pulling the Docker image 
 ### Using bspatch directly
 The patch has been created using bsdiff. If you have bsdiff/bspatch on your UNIX/Linux/macOS system you can also apply the patch manually without the overhead of Docker and make.
 
-Once you have bspatch you only need the `235-release-cd1000-patch.bin` patch file from the `src/docker` directory. You can then apply the patch as follows:
+Once you have bspatch you only need the `235-release-<device name>-patch.bin` patch file from the `src/docker` directory. You can then apply the patch as follows:
 
 ```sh
 bspatch 230.rom "CDTV Extended-ROM v2.35 (2021)(CDTV Land)(CDTV).rom" 235-release-cd1000-patch.bin
+bspatch 230.rom "CDTV Extended-ROM v2.35 (2022)(CDTV Land)(A570).rom" 235-release-a570-patch.bin
+bspatch 230.rom "CDTV Extended-ROM v2.35 (2022)(CDTV Land)(A690).rom" 235-release-a690-patch.bin
 ```
-This should generate the 2.35 ROM image. The md5 sum of the 2.35 ROM image should be `662e740093ffe510695cab281cd659f7`
+This should generate the 2.35 ROM images for CD1000, A570 and A690 respectively.
 
 ## Tools used to create CDTV OS 2.35
 

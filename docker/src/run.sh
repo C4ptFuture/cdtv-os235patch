@@ -4,7 +4,9 @@
 
 
 CDTV230ROM="/data/230.rom"
-CDTV235ROM="/data/CDTV Extended-ROM v2.35 (2021)(CDTV Land)(CDTV).rom"
+CDTV235ROM_CD1000="/data/CDTV Extended-ROM v2.35 (2021)(CDTV Land)(CDTV).rom"
+CDTV235ROM_A570="/data/CDTV Extended-ROM v2.35 (2022)(CDTV Land)(A570).rom"
+CDTV235ROM_A690="/data/CDTV Extended-ROM v2.35 (2022)(CDTV Land)(A690).rom"
 CDTV230SUM="d98112f18792ee3714df16a6eb421b89"
 
 echo "   __________  _______    __   ____  _____    ___    _____ ______"
@@ -34,7 +36,11 @@ echo "[INFO]  Official 2.30 ROM hash OK."
 
 # patch it
 echo "[INFO]  Creating the 2.35 ROM for CD1000...."
-bspatch "${CDTV230ROM}" "${CDTV235ROM}" 235-release-cd1000-patch.bin
+bspatch "${CDTV230ROM}" "${CDTV235ROM_CD1000}" 235-release-cd1000-patch.bin
+echo "[INFO]  Creating the 2.35 ROM for A570...."
+bspatch "${CDTV230ROM}" "${CDTV235ROM_A570}" 235-release-a570-patch.bin
+echo "[INFO]  Creating the 2.35 ROM for A690...."
+bspatch "${CDTV230ROM}" "${CDTV235ROM_A690}" 235-release-a690-patch.bin
 
 if [ $? -ne 0 ]; then
     echo "[ERROR] Patch failed!!"
@@ -42,9 +48,14 @@ if [ $? -ne 0 ]; then
 fi
 
 # split the ROM image for easy burning to EPROM (thx ChadsArcade!)
-echo "[INFO]  Splitting ROM image"
+echo "[INFO]  Splitting CD1000 ROM image"
 srec_cat -o /data/CDTV_v2_35_U34_Even.bin -binary "/data/CDTV Extended-ROM v2.35 (2021)(CDTV Land)(CDTV).rom" -binary -split 2 0
 srec_cat -o /data/CDTV_v2_35_U35_Odd.bin -binary "/data/CDTV Extended-ROM v2.35 (2021)(CDTV Land)(CDTV).rom" -binary -split 2 1
+
+# byteswap the A570 and A690 images for 27c400
+echo "[INFO]  Byteswapping A570 and A690 images"
+dd conv=swab <"${CDTV235ROM_A570}" >/data/A570_v2_35.bin
+dd conv=swab <"${CDTV235ROM_A690}" >/data/A690_v2_35.bin
 
 echo "[INFO]  Patch succesful. Enjoy your new CDTV ROM!!"
 echo "[INFO]  PATCH CDTV OS ROM 2.30 TO 2.35 - end"
