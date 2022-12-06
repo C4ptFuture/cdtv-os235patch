@@ -20,14 +20,14 @@
   - [Technical stuff](#technical-stuff)
     - [Why exactly does the CD-ROM drive stop working on all other ROMs except yours when you install a 68030 accelerator and/or 32-bit Fast RAM in a CDTV player?](#why-exactly-does-the-cd-rom-drive-stop-working-on-all-other-roms-except-yours-when-you-install-a-68030-accelerator-andor-32-bit-fast-ram-in-a-cdtv-player)
     - [You say that the ROM uses the 68030 MMU to do cache-inhibit, but SysInfo and any other tool says the MMU is unused. What gives?](#you-say-that-the-rom-uses-the-68030-mmu-to-do-cache-inhibit-but-sysinfo-and-any-other-tool-says-the-mmu-is-unused-what-gives)
+    - [What is the HDD bootdelay?](#what-is-the-hdd-bootdelay)
+    - [How do I set the HDD boot delay?](#how-do-i-set-the-hdd-boot-delay)
   - [TF536](#tf536)
     - [Why do I need to update my TF536 firmware?](#why-do-i-need-to-update-my-tf536-firmware)
     - [How is the CDTV specific TF536 firmware different?](#how-is-the-cdtv-specific-tf536-firmware-different)
   - [Troubleshooting](#troubleshooting)
     - [My 68030 equipped A500/A500+ with A570 is randomly crashing. What's up?](#my-68030-equipped-a500a500-with-a570-is-randomly-crashing-whats-up)
     - [Why do some CDTV titles not work on my system?](#why-do-some-cdtv-titles-not-work-on-my-system)
-    - [What is the HDD bootdelay?](#what-is-the-hdd-bootdelay)
-    - [How do I set the HDD boot delay?](#how-do-i-set-the-hdd-boot-delay)
   - [EPROM burning](#eprom-burning)
     - [Do I need to split or byteswap the ROM images for burning to EPROM?](#do-i-need-to-split-or-byteswap-the-rom-images-for-burning-to-eprom)
 
@@ -103,6 +103,15 @@ The third problem is CPU caching of the DMAC Autoconfig I/O address range by the
 ### You say that the ROM uses the 68030 MMU to do cache-inhibit, but SysInfo and any other tool says the MMU is unused. What gives?
 Cache inhibit in CDTV OS 2.35 is configured using the MMU's TTx registers. The MMU does not need any active translation tables to be configured for the Transparent Translation registers to function. 
 
+### What is the HDD bootdelay?
+The HDD bootdelay is a user-configurable delay that is invoked whenever a fixed bootable volume is present on the system, like e.g. a harddisk. The rationale behind this delay is to work around a usability issue caused by the way that CDTV OS is implemented, because whenever a harddisk is installed the system will always immediately bypass the CDTV Title Screen and proceed to boot from the harddisk. The problem with this implementation is that the CDTV Preferences panel becomes inaccessible to the end user. By inserting a small delay before the boot starts the user has a window of opportunity to interact with the CDTV Title Screen to e.g. launch the CDTV Preferences panel.
+
+I have implemented the HDD bootdelay in the CDTV bootstrap module (cdstrap). This module constantly scans the system for bootable volumes (diskdrive, CD-ROM drive or bootable volume on the expansion.device MountList) and will exit if one is found. The behavior when a bootable floppy disk or CD-ROM is inserted is unchanged. However instead of exiting immediately when a bootable volume on expansion.device is found, I start a counter and cdstrap will only exit when the counter value matches or exceeds that of the user configured HDD bootdelay. The user can also force an exit at any time by pressing the ESC key on the CDTV remote controller or keyboard.
+
+The HDD bootdelay value is stored in bookmark memory. When CDTV OS 2.35 starts up and there is no bookmark yet, it will create a default bookmark with an HDD bootdelay with a sane default of approximately 5 seconds. The user can set the HDD bootdelay to any desired value (including 0 to effectively disable it and restore the original behavior of the older official CDTV OS ROMs). Currently the HDD bootdelay can only be configured using a command line utility called [CDTVTools](https://github.com/C4ptFuture/cdtv-cdtvtools). Future CDTV OS ROM releases from CDTV Land will allow you to configure the HDD Bootdelay right inside the CDTV Preferences panel.
+
+### How do I set the HDD boot delay?
+You can use the [CDTVTools](https://github.com/C4ptFuture/cdtv-cdtvtools) application for that. See the repo documentation for usage instructions.
 
 
 ## TF536
@@ -126,15 +135,6 @@ E.g. most A500s only have 0.5MB of Chip RAM (and 0.5 MB Fast RAM as a trap door 
 
 Another issue may be the use of an accelerator board. Although CDTV OS 2.35 makes your CDTV player and A570/A690 CD-ROM drive work with 68030 accelerators, some CDTV titles (especially games) may not be compatible with the 68030. CDTV OS 2.35 by default disables CPU caching for Zorro-II RAM (24-bit) which increases compatibility with old software, but the software may still be doing dumb stuff like busy loops, which may cause compatibility issues.
 
-### What is the HDD bootdelay?
-The HDD bootdelay is a user-configurable delay that is invoked whenever a fixed bootable volume is present on the system, like e.g. a harddisk. The rationale behind this delay is to work around a usability issue caused by the way that CDTV OS is implemented, because whenever a harddisk is installed the system will always immediately bypass the CDTV Title Screen and proceed to boot from the harddisk. The problem with this implementation is that the CDTV Preferences panel becomes inaccessible to the end user. By inserting a small delay before the boot starts the user has a window of opportunity to interact with the CDTV Title Screen to e.g. launch the CDTV Preferences panel.
-
-I have implemented the HDD bootdelay in the CDTV bootstrap module (cdstrap). This module constantly scans the system for bootable volumes (diskdrive, CD-ROM drive or bootable volume on the expansion.device MountList) and will exit if one is found. The behavior when a bootable floppy disk or CD-ROM is inserted is unchanged. However instead of exiting immediately when a bootable volume on expansion.device is found, I start a counter and cdstrap will only exit when the counter value matches or exceeds that of the user configured HDD bootdelay. The user can also force an exit at any time by pressing the ESC key on the CDTV remote controller or keyboard.
-
-The HDD bootdelay value is stored in bookmark memory. When CDTV OS 2.35 starts up and there is no bookmark yet, it will create a default bookmark with an HDD bootdelay with a sane default of approximately 5 seconds. The user can set the HDD bootdelay to any desired value (including 0 to effectively disable it and restore the original behavior of the older official CDTV OS ROMs). Currently the HDD bootdelay can only be configured using a command line utility called [CDTVTools](https://github.com/C4ptFuture/cdtv-cdtvtools). Future CDTV OS ROM releases from CDTV Land will allow you to configure the HDD Bootdelay right inside the CDTV Preferences panel.
-
-### How do I set the HDD boot delay?
-You can use the [CDTVTools](https://github.com/C4ptFuture/cdtv-cdtvtools) application for that. See the repo documentation for usage instructions.
 
 ## EPROM burning
 ### Do I need to split or byteswap the ROM images for burning to EPROM?
