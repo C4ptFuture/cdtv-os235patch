@@ -88,7 +88,7 @@ I don't know. I did not have access to 68040 or 68060 based accelerators during 
 PiStorm currently does not implement bus arbitration. This means that CD-ROM and SCSI device access does not work on CDTV. This is a hardware compatibility issue between the PiStorm and any system that depends on bus arbitration, like the CDTV hardware. It is unrelated to CDTV OS 2.35 and cannot be fixed in software.
 
 ### Which 68030 based accelerators can be used in a CDTV player?
-CDTV OS 2.35 has succesfully been tested with the TerribleFire TF536 and M-Tec/E-Matrix Viper 530 accelerator boards, although it is very likely that any 68030 based accelerator will work. TF536 users are advised to [update](https://www.exxoshost.co.uk/forum/viewtopic.php?f=76&t=3542&start=30#p70123) their TF536 firmware, though.
+CDTV OS 2.35 has succesfully been tested with the TerribleFire TF536 and M-Tec/E-Matrix Viper 530 accelerator boards, although it is very likely that any 68030 based accelerator will work. TF536 users are advised to [update](https://exxosforum.co.uk/forum/viewtopic.php?f=76&t=5920) their TF536 firmware, though.
 
 
 ## Technical stuff
