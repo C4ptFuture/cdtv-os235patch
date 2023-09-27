@@ -7,7 +7,7 @@ CDTV230ROM="/data/230.rom"
 CDTV235ROM_CD1000="/data/CDTV Extended-ROM v2.35 (2021)(CDTV Land)(CDTV).rom"
 CDTV235ROM_A570="/data/CDTV Extended-ROM v2.35 (2022)(CDTV Land)(A570).rom"
 CDTV235ROM_A690="/data/CDTV Extended-ROM v2.35 (2022)(CDTV Land)(A690).rom"
-CDTV235ROM_MEMCARD="/data/CDTV Extended-ROM v2.35 (2021)(CDTV Land)(CD1401-CD1405).rom"
+CDTV235ROM_MEMCARD="/data/CDTV Extended-ROM v2.35 (2023)(CDTV Land)(CD1401-CD1405).rom"
 CDTV230SUM="d98112f18792ee3714df16a6eb421b89"
 
 echo "   __________  _______    __   ____  _____    ___    _____ ______"
