@@ -8,6 +8,7 @@ CDTV235ROM_CD1000="/data/CDTV Extended-ROM v2.35 (2021)(CDTV Land)(CDTV).rom"
 CDTV235ROM_A570="/data/CDTV Extended-ROM v2.35 (2022)(CDTV Land)(A570).rom"
 CDTV235ROM_A690="/data/CDTV Extended-ROM v2.35 (2022)(CDTV Land)(A690).rom"
 CDTV235ROM_MEMCARD="/data/CDTV Extended-ROM v2.35 (2023)(CDTV Land)(CD1401-CD1405).rom"
+CDTV235ROM_MEMCARD_INSTALLER_ADF="/data/CDTVOS235-memcard-installer.adf"
 CDTV230SUM="d98112f18792ee3714df16a6eb421b89"
 
 echo "   __________  _______    __   ____  _____    ___    _____ ______"
@@ -80,6 +81,11 @@ dd conv=swab <"${CDTV235ROM_A690}" >/data/A690_v2_35.bin
 # truncate the memory card image to 64K size
 echo "[INFO]  Truncating memory card image"
 truncate -s 65536 "${CDTV235ROM_MEMCARD}"
+
+# inject ROM image into installer ADF
+echo "[INFO]  Generating installer ADF"
+xdftool installer-without-rom-image.adf write "${CDTV235ROM_MEMCARD}" /2.35-cd1401-release.rom
+cp installer-without-rom-image.adf "${CDTV235ROM_MEMCARD_INSTALLER_ADF}"
 
 echo "[INFO]  Patch succesful. Enjoy your new CDTV ROM!!"
 echo "[INFO]  PATCH CDTV OS ROM 2.30 TO 2.35 - end"
