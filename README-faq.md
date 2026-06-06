@@ -37,6 +37,8 @@
 * 6. [EPROM burning](#EPROMburning)
 	* 6.1. [Do I need to split or byteswap the ROM images for burning to EPROM?](#DoIneedtosplitorbyteswaptheROMimagesforburningtoEPROM)
 	* 6.2. [Why is it sometimes called a ROM and sometimes ROMs?](#WhyisitsometimescalledaROMandsometimesROMs)
+	* 6.3. [Getting the correct EPROM](#GettingthecorrectEPROM)
+	* 6.4. [Reading original mask ROMs](#ReadingoriginalmaskROMs)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -190,3 +192,41 @@ That will be done for you. The patch will automatically generate both a standard
 This can be a little confusing to newcomers, because very often the terms ROM (singular) and ROMs (plural) are used interchangably when it comes to CDTV. But don't worry, they refer to the same thing. Basically, the CDTV OS ROM image when it is built is typically just a single file on a computer. However, depending on which chip or chips need to be programmed, the data inside this file might need to be re-arranged before it can be programmed/burned onto an EPROM, which is a reprogrammable type of ROM.
 
 For the CD1000 the ROM image is split across two separate 8-bit chips. One that contains all the odd bytes and one that contains all the even bytes, because that is how the CD1000 mainboard has been designed. That's why you will often hear people referring to them as ROMs instead of just a ROM. (The A570 and A690 just use a single ROM chip, so there's usually no confusion there).
+
+###  6.3. <a name='GettingthecorrectEPROM'></a>Getting the correct EPROM
+
+The Amiga CDTV Extended ROMS (U34 ‘Even’ and U35 ‘Odd’) are mask ROMs (non-programmable) that use a cut-down version (28 pin rather than 32 pin) of the 27C1000 non-JEDEC specification.
+
+Knowing which type of replacement of EPROM to use has been confused since some manufacturers chose to use non-JEDEC codes (in this case 27C1000) for their JEDEC complaint chips and vice versa.  Both standards’ pinouts are shown in the picture below:
+
+![](pics/jedec-nonjedec.jpg)
+
+The difference between them is that pin 2 and pin 24 are swapped roles on the non-JEDEC to allow for smaller 28 pin mask ROMs to be used in the same 32 pin socket but without the extra redundant programming pins for cheaper manufacture.
+
+Below is a table of common manufacturers’ codes to help, if in doubt then check the pinouts on the relevant data sheet for the chip against the non-JEDEC layout.
+
+| Manufacturer | JEDEC | Non-JEDEC |
+| --- | ---| ---|
+| Macronix | MX27C1000 | MX27C1001 |
+| Toshiba | TC571000 | TC571001 |
+| SGS-Thomson | ST27C1001 | ST27C1000 |
+| Sony | CXK27C1001 | CXK27C1000 |
+| Hitachi | HN27C101 | HN27C301 |
+| NEC | uPD27C1001 | uPD27C1000 |
+| Fujitsu | MBM27C1001 | MBM27C1000 |
+| Intel | 27C010 | 27C100 |
+
+The CDTV board has 32 pin sockets to accommodate using 32 pin 27C1000’s as well as the 28 pin mask ROMs, all the address, data and control pins are in the same location when chips are aligned at the bottom (non notched) end of the socket as below:
+
+![](pics/jedec-nonjedec-cdtv.png)
+
+For completeness the differences are that the power VCC is provided on pin 28 for the mask ROM matches the NC (no connection) pin 30 on the EPROM so it does not clash and for the EPROM pins 1,31,32 are held to VCC and pin 2 to GND on the sockets of the CDTV.
+
+###  6.4. <a name='ReadingoriginalmaskROMs'></a>Reading original mask ROMs
+
+To read the original 28-pin Amiga CDTV mask ROMs you can use any of the non-JEDEC part numbers e.g.  Fujitsu MBM27C1000P.
+
+On your device put the mask ROM in two pin rows down from the top notch. You will need to put a wire link for VCC from what would be pin 32 to pin 30 (top right pin on socket to top right pin on chip) to power the chip as well as disabling pin and vendor checks if applicable.
+
+# 7. Acknowledgments
+- Original info in [6.3](#GettingthecorrectEPROM) and [6.4](#ReadingoriginalmaskROMs) from [https://jammarcade.net/1mbit-eprom-confusion-jedec-vs-non-jedec/](https://jammarcade.net/1mbit-eprom-confusion-jedec-vs-non-jedec/) and kindly supplied and expanded by dandoore
