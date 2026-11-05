@@ -2,6 +2,13 @@
 
 This repository contains a patch that can convert an official Commodore CDTV 2.30 Extended ROM image into a 2.35 ROM image. For copyright reasons you need to supply the 2.30 ROM image yourself.
 
+_IMPORTANT NOTE:_
+
+ [CDTV OS 2.36](https://github.com/C4ptFuture/cdtv-os236patch) has been released in November 2026 and has a much easier to use patching procedure. Unless you have a specific reason why you want to update to 2.35, the recommendation is to update directly to 2.36, which has support for more hardware and includes all the features of 2.35.
+
+ This repository will not be updated anymore and is kept for archival purposes only.
+
+
 _This repository contains no Commodore/Amiga intellectual property._
 
 ![CDTV OS 2.35](pics/cdtvos235.png)

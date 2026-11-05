@@ -1,5 +1,8 @@
 # CDTV OS 2.35 - FAQ
 
+_IMPORTANT NOTE:_
+
+ [CDTV OS 2.36](https://github.com/C4ptFuture/cdtv-os236patch) has been released in November 2026. Some of the information in this FAQ may now be outdated. Unless you have a specific reason why you want to update to 2.35, the recommendation is to update directly to 2.36, which has support for more hardware and includes all the features of 2.35.
 
 <!-- vscode-markdown-toc -->
 * 1. [About CDTV OS 2.35](#AboutCDTVOS2.35)
@@ -123,7 +126,7 @@ Theoretically, yes. If you have a custom memory expansion in your CD1000 that ma
 I don't know. I did not have access to 68040 or 68060 based accelerators during the development of CDTV OS 2.35, nor were these accelerators targeted during development.
 
 ###  2.7. <a name='DoesCDTVOS2.35workwithPiStorm'></a>Does CDTV OS 2.35 work with PiStorm?
-PiStorm currently does not implement bus arbitration. This means that CD-ROM and SCSI device access does not work on CDTV. This is a hardware compatibility issue between the PiStorm and any system that depends on bus arbitration, like the CDTV hardware. It is unrelated to CDTV OS 2.35 and cannot be fixed in software.
+No, but [CDTV OS 2.36](https://github.com/C4ptFuture/cdtv-os236patch) does!
 
 ###  2.8. <a name='Which68030basedacceleratorscanbeusedinaCDTVplayer'></a>Which 68030 based accelerators can be used in a CDTV player?
 CDTV OS 2.35 has succesfully been tested with the TerribleFire TF536 and M-Tec/E-Matrix Viper 530 accelerator boards, although it is very likely that any 68030 based accelerator will work. TF536 users are advised to [update](https://exxosforum.co.uk/forum/viewtopic.php?f=76&t=5920) their TF536 firmware, though.
